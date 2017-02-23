@@ -1,0 +1,12 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: 1
+  friend_id: 2
+  status: MyString
+
+two:
+  user: 2
+  friend_id: 1
+  status: MyString

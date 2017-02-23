@@ -1,0 +1,17 @@
+I"Ý(function() {
+  $(function() {
+    $('.dropdown-menu a').click(function() {
+      var action_type;
+      action_type = $(this).text();
+      return $("#action_type").html(action_type + ' <span class="caret"></span>');
+    });
+    return $('.btn-add-key-value').click(function() {
+      var key_html, next_key_value;
+      next_key_value = $(".api-key").length + 1;
+      key_html = '<div class="form-group"> <input class="form-control api-key" data="api-key' + next_key_value + '" placeholder="Key" type="text"> </div> <div class="form-group"> <input class="form-control api-key' + next_key_value + '-val" placeholder="Value" type="text"> </div>';
+      return $(".form-api-key-list").append(key_html);
+    });
+  });
+
+}).call(this);
+:ET

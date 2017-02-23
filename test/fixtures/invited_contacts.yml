@@ -1,0 +1,11 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user:
+  phone_number: +15422162460
+  first_name: wira1
+two:
+  user:
+  phone_number: +15422166204
+  first_name: wira2

@@ -1,0 +1,11 @@
+I"ÿ(function() {
+  $(function() {
+    return $('.dropdown-menu a').click(function() {
+      var action_type;
+      action_type = $(this).text();
+      return $("#action_type").html(action_type + ' <span class="caret"></span>');
+    });
+  });
+
+}).call(this);
+:ET

@@ -1,0 +1,14 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: 3
+  message: MyString
+  sender_id: 2
+  notif_type: 1
+
+two:
+  user: 3
+  message: MyString
+  sender_id: 1
+  notif_type: 0

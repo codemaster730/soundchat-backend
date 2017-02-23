@@ -1,0 +1,58 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+tester1:
+  id: 1
+  email: test1@email.com
+  user_name: tst1
+  first_name: ft1
+  last_name: lt1
+  phone_number: +13503558897
+  digital_code: 7451
+  token: XSAjwlkw39-aWj45
+  device_token: 234jlkjlj2lk4234lkwjelkrtj2k34j5
+  verified: true
+tester2:
+  id: 2
+  email: test2@email.com
+  user_name: tst3
+  first_name: ft2
+  last_name: lt2
+  phone_number: +14503587897
+  digital_code: 0751
+  device_token: Bxwe234jlkjlj2lk4234lkwjelkrtj2k34j5
+  token: QSAjwlDw39-bWjdO
+  verified: true
+tester3:
+  id: 3
+  email: test3@email.com
+  user_name: tst3
+  first_name: ft3
+  last_name: lt3
+  phone_number: +15503567898
+  digital_code: 7425
+  token: PSAjwlxr39-aWj45
+  device_token: Cze234jlkjlj2lk4234lkwjelkrtj2k34j5
+  verified: true
+tester4:
+  id: 4
+  email: test4@email.com
+  user_name: tst4
+  first_name: ft4
+  last_name: lt4
+  phone_number: +16503542297
+  digital_code: 0751
+  token: TSAjwyDw39-bWjdO
+  device_token: Dte234jlkjlj2lk4234lkwjelkrtj2k34j5
+  verified: true
+tester5:
+  id: 5
+  email: test5@email.com
+  user_name: tst5
+  first_name: ft5
+  last_name: lt5
+  phone_number: +17503667297
+  digital_code: 0751
+  token: XSAjwyDw39-bWjdO
+  device_token: Epe234jlkjlj2lk4234lkwjelkrtj2k34j5
+  verified: true

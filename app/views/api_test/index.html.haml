@@ -1,0 +1,228 @@
+#api_test_header{role: "navigation"}
+  .container
+    .row
+      %h3 SOUNDCHAT BACKEND API TEST PAGE
+    / Split button
+    .row.setting-api-values
+      .row.setting-url
+        .col-lg-10.col-md-10.col-sm-10
+          .input-group
+            .input-group-btn
+              %button#request_action_type.btn.btn-default.btn-primary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                GET
+                %span.caret
+              %ul.dropdown-menu
+                %li
+                  %a{:href => "#"} GET
+                %li
+                  %a{:href => "#"} POST
+                %li
+                  %a{:href => "#"} PUT
+                %li
+                  %a{:href => "#"} DELETE
+            / /btn-group
+            / /%input.form-control{"aria-label" => "...", :type => "text"}/
+            .input-group.col-lg-12.col-md-12
+              %span#basic_host_url.input-group-addon https://soundchat0520.herokuapp.com
+              %input#api_request_url.form-control{"aria-describedby" => "api_request_url", :type => "text", :value =>"/api/v1/accounts/ping"}/
+            %span.input-group-btn
+              %button.btn.btn-default.btn-success.btn-send-request{:type => "button"} Send!
+          / /input-group
+
+/ /.row
+%br/
+.row.setting-values.api-detail
+  .col-sm-6
+    .row
+      .col-sm-6
+        %h4 API Values
+      .col-sm-4
+        %button.btn.btn-default.btn-primary.btn-add-key-value{:type => "button"} Add Key
+    .row
+      .col-sm-10
+        %form.form-inline.form-api-key-list
+          .form-group
+            %input.form-control.api-key.col-sm-2{:placeholder => "Key", :type => "text",:"data-keyvalue" => "api-key1"}/
+          %label -
+          .form-group
+            %input.form-control.api-key1-val{:placeholder => "Value", :type => "text"}/
+
+  .col-sm-6
+    .row
+      .col-sm-12
+        .panel.panel-default
+          .panel-heading
+            %h3.panel-title Result
+          .panel-body.api-request-result-panel{style: "overflow: auto"}
+            {}
+
+.row
+  .col-sm-12
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title Api Details
+      .panel-body
+        .row
+          .col-sm-6
+            %h4 Create Account using phone_number
+            %label POST: /api/v1/accounts
+            %p
+              parameters:
+              %p phone_number:   String *required
+              %p device_token:   String *required
+            %p
+              results:
+              %p
+                if success
+                %p return {state: 'success',  data: '1'}
+              %p
+                else
+                %p return {state: 'failure',  data: error_message}
+
+          .col-sm-6
+            %h4 Verify Account using phone_number and digital_code
+            %label POST: /api/v1/accounts/verify
+            %p
+              parameters:
+              %p phone_number:   String *required
+              %p digital_code:   Number *required
+            %p
+              results:
+              %p
+                if success
+                %p return {state: 'success',  data: token}
+              %p
+                else
+                %p return {state: 'failure',  data: error_message}
+        .row
+          .col-sm-6
+            %h4 Set full name
+            %label POST: /api/v1/accounts/set_full_name
+            %p
+              parameters:
+              %p token:      String * required
+              %p first_name: String
+              %p last_name:  String
+            %p
+              results:
+              %p
+                if success
+                %p return {state: 'success',  data: user_id}
+              %p
+                else
+                %p return {state: 'failure',  data: error_message}
+
+          .col-sm-6
+            %h4 Find friends via contact list
+            %label POST: /api/v1/accounts/find_friends
+            %p
+              parameters:
+              %p token:        String * required
+              %p phone_numbers: String splited by ','
+
+            %p
+              results:
+              %p
+                if success
+                %p return {state: 'success',  data: {friend_list}}
+              %p
+                else
+                %p return {state: 'failure',  data: error_message}
+        .row
+          .col-sm-6
+            %h4 Invite friend request by user name
+            %label POST: /api/v1/accounts/invite_friend
+            %p
+              parameters:
+              %p token:        String * required
+              %p user_name:    String * required
+
+            %p
+              results:
+              %p
+                if success
+                %p return {state: 'success',  data: user_id}
+              %p
+                else
+                return {state: 'failure',  data: error_message}
+        .row
+          .col-sm-6
+            %h4 Invite friend request by phone_number
+            %label POST: /api/v1/accounts/invite_friend_by_contact_phone_number
+            %p
+              parameters:
+              %p token:          String * required
+              %p phone_number:   String * required
+              %p first_name:     String * required
+
+            %p
+              results:
+              %p
+                if success
+                %p return {state: 'success',  data: users point}
+              %p
+                else
+                %p return {state: 'failure',  data: error_message}
+          .col-sm-6
+            %h4 Accept friend request
+            %label POST: /api/v1/accounts/accept_request
+            %p
+              parameters:
+              %p token:        String * required
+              %p friend_id     String * required
+              %p state:        Boolean * required 1:accepted,0:declined
+
+            %p
+              results:
+              %p
+                if success
+                %p return {state: 'success',  data: {friend_list}}
+              %p
+                else
+                %p return {state: 'failure',  data: error_message}
+        .row
+          .col-sm-6
+            %h4 Set User Name
+            %label POST: /api/v1/accounts/set_user_name
+            %p
+              parameters:
+              %p token:      String * required
+              %p user_name:  String * required
+            %p
+              results:
+              %p
+                if success
+                %p return {state: 'success',  data: user_id}
+              %p
+                else
+                %p return {state: 'failure',  data: error_message}
+
+          .col-sm-6
+            %h4 Get my friends
+            %label GET: /api/v1/accounts/friends
+            %p
+              parameters:
+              %p token:        String * required
+
+            %p
+              results:
+              %p
+                if success
+                %p return {state: 'success',  data: {friend_list}}
+              %p
+                else
+                %p return {state: 'failure',  data: error_message}
+:javascript
+  host_url = "#{@host_url}"
+  $("#basic_host_url").text(host_url);
+  $(window).scroll(function(event){
+    var scr_top = $(window).scrollTop();
+    if(scr_top>20){
+      $("#api_test_header").addClass("navbar navbar-default navbar-fixed-top");
+      $("#api_test_header").css('top',-20)
+      $(".setting-values").css("padding-top", "120px")
+    }else{
+      $("#api_test_header").removeClass("navbar navbar-default navbar-fixed-top")
+      $(".setting-values").css("padding-top", "0px")
+    }
+  })

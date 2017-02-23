@@ -1,0 +1,18 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  first_name: MyString
+  last_name: MyString
+  phone_number: MyString
+  invited: false
+  friends_count: 0
+
+two:
+  user_id: 1
+  first_name: MyString
+  last_name: MyString
+  phone_number: MyString
+  invited: false
+  friends_count: 2

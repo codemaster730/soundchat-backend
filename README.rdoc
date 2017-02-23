@@ -1,0 +1,223 @@
+= SoundChat APIs
+
+== Accounts api
+==== Create Account
+  Create Account using phone_number
+    POST: /api/v1/accounts
+      parameters:
+        phone_number:   String *required
+      results:
+        if success
+          return {state: 'success',  data: '1'}
+        else
+          return {state: 'failure',  data: error_message}
+  TEST: curl -H "Content-Type: application/json" -X POST -d '{"phone_number":""}' http://localhost:3000/api/v1/accounts
+==== Get user info
+  GET: /api/v1/accounts
+  parameters:
+    token:      String * required
+  results:
+    if success
+      return {state: 'success',  data: {
+        token:'token',
+        first_name: 'fname',
+        last_name: 'lname',
+        user_name: 'u_name',
+        phone_number: '+15243..',
+        point: '60'
+        friends:{
+          [
+            id: friend_id,
+            first_name: 'ffname',
+            last_name: 'flname',
+            user_name: 'funame',
+            phone_number: 'fpnumber'
+          ],
+          [...]
+        },
+        notifications:{
+          [
+          id: notification_id,
+          message: 'msg',
+          type: '0'   // 0: "notification_friend_request", 1: "notification_friend_accept"
+          ],
+          [...]
+        }
+      }}
+    else
+      return {state: 'failure',  data: error_message}
+==== Verify PhoneNumber
+  Verify Account using phone_number
+    POST: /api/v1/accounts/verify
+      parameters:
+        phone_number:   String *required
+        digital_code:   Number *required
+      results:
+        if success
+          return {state: 'success',  data: {
+            token:'token',
+            first_name: 'fname',
+            last_name: 'lname',
+            user_name: 'u_name',
+            phone_number: '+15243..',
+            friends:{
+              [
+                id: friend_id,
+                first_name: 'ffname',
+                last_name: 'flname',
+                user_name: 'funame',
+                phone_number: 'fpnumber'
+              ],
+              [...]
+            },
+            notifications:{
+              [
+              id: notification_id,
+              message: 'msg',
+              type: '0'   // 0: "notification_friend_request", 1: "notification_friend_accept"
+              ],
+              [...]
+            }
+          }}
+        else
+          return {state: 'failure',  data: error_message}
+  TEST: curl -H "Content-Type: application/json" -X POST -d '{"phone_number":"", "digital_code":""}' http://localhost:3000/api/v1/accounts/verify
+
+==== Set full name
+  Set first name and last name
+    POST: /api/v1/accounts/set_full_name
+      parameters:
+        token:   String *required
+        first_name: String
+        last_name: String
+      results:
+        if success
+          return {state: 'success',  data: user_id}
+        else
+          return {state: 'failure',  data: error_message}
+  TEST: curl -H "Content-Type: application/json" -X POST -d '{"token":"", "first_name":"","last_name":""}' http://localhost:3000/api/v1/accounts/set_full_name
+
+==== Set user name
+  POST: /api/v1/accounts/set_user_name
+  parameters:
+    token:      String * required
+    user_name:  String * required
+    device_token:   String *required
+  results:
+    if success
+      return {state: 'success',  data: user_id}
+    else
+      return {state: 'failure',  data: error_message}
+
+==== Find friends on app
+  Find friends via contact list
+    POST: /api/v1/accounts/find_friends
+    parameters:
+      token:          String * required
+      contacts:       String split by ',' "+11111:Wira1 coon, 2354:Wira2"
+
+    results:
+      if success
+        return {state: 'success',  data: {
+          friends:[{
+            id: friend.id,
+            phone_number: friend.phone_number,
+            first_name: friend.first_name,
+            last_name: friend.last_name,
+            user_name: friend.user_name
+          }],
+          contacts:[{
+            phone_number: contact.phone_number,
+            friends_count: contact.friends_count,
+            point: contact.point
+          }]
+        }}
+      else
+        return {state: 'failure',  data: error_message}
+==== Get friends on app
+    Get my friends
+    GET: /api/v1/accounts/friends
+    parameters:
+      token:        String * required
+
+    results:
+      if success
+        return {state: 'success',  data: {friend_list}}
+      else
+        return {state: 'failure',  data: error_message}
+==== Invite friend by user name
+  Invite friend request by user name
+    POST: /api/v1/accounts/invite_friend
+    parameters:
+      token:        String * required
+      user_name:    String * required
+
+    results:
+      if success
+        return {state: 'success',  data: user_id}
+      else
+        return {state: 'failure',  data: error_message}
+==== Invite friend request by phone_number
+POST: /api/v1/accounts/invite_friend_by_contact_phone_number
+parameters:
+  token:          String * required
+  phone_number:   String * required
+  first_name:     String * required
+
+results:
+  if success
+    return {state: 'success',  data: user_point}
+  else
+    return {state: 'failure',  data: error_message}
+
+==== Accept friend request
+    Accept friend request
+    POST: /api/v1/accounts/accept_request
+    parameters:
+      token:        String * required
+      friend_id     String * required
+      state:        Boolean * required 1:accepted,0:declined
+
+    results:
+      if success
+        return {state: 'success',  data: {friend_list}}
+      else
+        return {state: 'failure',  data: error_message}
+==== DELETE friends
+    DELETE: /api/v1/accounts/friends
+    parameters:
+      token:        String * required
+      friend_id     String * required
+    results:
+      if success
+        return {state: 'success',  data: ""}
+      else
+        return {state: 'failure',  data: error_message}
+==== Reset badge count
+    POST: /api/v1/accounts/reset_badge_count
+    parameters
+      token:        String * required
+    results:
+      if success
+        return {state: 'success',  data: success_message}
+      else
+        return {state: 'failure',  data: error_message}
+==== Get notifications
+    GET: /api/v1/accounts/notifications
+    parameters
+      token:        String * required
+    results:
+      if success
+        return {state: 'success',  data: success_message}
+      else
+        return {state: 'failure',  data: error_message}
+==== Delete notification
+    DELETE: /api/v1/accounts/notification
+    parameters
+      token:            String * required
+      notification_id:  String * required
+    results:
+      if success
+        return {state: 'success',  data: success_message}
+      else
+        return {state: 'failure',  data: error_message}

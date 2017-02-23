@@ -1,0 +1,56 @@
+
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Users</h1>
+
+<table class="table table-responsive table-border">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>User name</th>
+      <th>Full name</th>
+      <th>Phone number(Last 5)</th>
+      <th>DeviceToken(Last 10)</th>
+      <th>Digital code</th>
+      <th>Verified</th>
+      <th>Point</th>
+      <th>Contacts Count</th>
+      <th>Sent Invite Count</th>
+      <th>Manage</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.user_name %></td>
+        <td><%= user.full_name %></td>
+        <td><%= user.phone_number[-5,5] %></td>
+        <td><%= user.device_token !=nil ? user.device_token[-10, 10] : '' %></td>
+        <td><%= user.digital_code %></td>
+        <td><%= user.verified %></td>
+        <td><%= user.point %></td>
+        <td><%= user.contacts.count %></td>
+        <td><%= user.invited_contacts.count %></td>
+        <td>
+          <%= link_to user, class: '' do %>
+            <span class="glyphicon glyphicon-book"></span>
+          <% end %>
+
+          <%= link_to edit_user_path(user), class: '' do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
+
+          <%= link_to user, class: '', method: :delete, data: { confirm: 'Are you sure?' } do %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+         </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User', new_user_path, class: 'btn btn-default btn-primary' %>

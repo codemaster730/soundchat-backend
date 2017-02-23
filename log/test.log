@@ -1,0 +1,655 @@
+  [1m[36m (139.1ms)[0m  [1mDROP DATABASE IF EXISTS "soundchat_test"[0m
+  [1m[35m (1147.6ms)[0m  CREATE DATABASE "soundchat_test" ENCODING = 'unicode'
+  [1m[36mSQL (15.6ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (24.3ms)[0m  CREATE TABLE "delayed_jobs" ("id" serial primary key, "priority" integer DEFAULT 0 NOT NULL, "attempts" integer DEFAULT 0 NOT NULL, "handler" text NOT NULL, "last_error" text, "run_at" timestamp, "locked_at" timestamp, "failed_at" timestamp, "locked_by" character varying, "queue" character varying, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (3.6ms)[0m  [1mCREATE  INDEX  "delayed_jobs_priority" ON "delayed_jobs" USING btree ("priority", "run_at")[0m
+  [1m[35m (5.3ms)[0m  CREATE TABLE "friendships" ("id" serial primary key, "user_id" integer, "friend_id" character varying, "status" character varying, "type" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (2.7ms)[0m  [1mCREATE  INDEX  "index_friendships_on_user_id" ON "friendships" USING btree ("user_id")[0m
+  [1m[35m (4.5ms)[0m  CREATE TABLE "users" ("id" serial primary key, "email" character varying, "user_name" character varying, "first_name" character varying, "last_name" character varying, "phone_number" character varying, "digital_code" character varying, "token" character varying, "verified" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (2.3ms)[0m  [1mALTER TABLE "friendships" ADD CONSTRAINT "fk_rails_e3733b59b7"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+[0m
+  [1m[35m (3.5ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (3.9ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.3ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (1.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160523153558')[0m
+  [1m[35m (1.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160520133932')
+  [1m[36m (1.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160520151649')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.9ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (1.1ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:30:39', '2016-05-24 10:30:39', 980190962)[0m
+  [1m[35mFixture Insert (1.1ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:30:39', '2016-05-24 10:30:39', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:30:39', '2016-05-24 10:30:39', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:30:39', '2016-05-24 10:30:39', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (1.3ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (1.1ms)[0m  BEGIN
+--------------------
+UserTest: test_valid
+--------------------
+  [1m[36mUser Exists (1.9ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."phone_number" = '+8613050386450' LIMIT 1[0m
+  [1m[35m (1.5ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+--------------------------
+FriendshipTest: test_valid
+--------------------------
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.6ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:09', '2016-05-24 10:31:09', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:09', '2016-05-24 10:31:09', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:09', '2016-05-24 10:31:09', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:09', '2016-05-24 10:31:09', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (1.4ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+--------------------
+UserTest: test_valid
+--------------------
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."phone_number" = '+8613050386450' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.5ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:11', '2016-05-24 10:31:11', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:11', '2016-05-24 10:31:11', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:11', '2016-05-24 10:31:11', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:11', '2016-05-24 10:31:11', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:14', '2016-05-24 10:31:14', 980190962)[0m
+  [1m[35mFixture Insert (0.6ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:14', '2016-05-24 10:31:14', 298486374)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:14', '2016-05-24 10:31:14', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:14', '2016-05-24 10:31:14', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:16', '2016-05-24 10:31:16', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:16', '2016-05-24 10:31:16', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:16', '2016-05-24 10:31:16', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:16', '2016-05-24 10:31:16', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (1.0ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:19', '2016-05-24 10:31:19', 980190962)[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:19', '2016-05-24 10:31:19', 298486374)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:19', '2016-05-24 10:31:19', 93719296)
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:19', '2016-05-24 10:31:19', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:21', '2016-05-24 10:31:21', 980190962)[0m
+  [1m[35mFixture Insert (0.7ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:21', '2016-05-24 10:31:21', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:21', '2016-05-24 10:31:21', 93719296)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:21', '2016-05-24 10:31:21', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.6ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:27', '2016-05-24 10:31:27', 980190962)[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:27', '2016-05-24 10:31:27', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:28', '2016-05-24 10:31:28', 93719296)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:28', '2016-05-24 10:31:28', 480205636)[0m
+  [1m[35m (28.0ms)[0m  COMMIT
+  [1m[36m (29.5ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:32', '2016-05-24 10:31:32', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:32', '2016-05-24 10:31:32', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:32', '2016-05-24 10:31:32', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:32', '2016-05-24 10:31:32', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (2.5ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:35', '2016-05-24 10:31:35', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:35', '2016-05-24 10:31:35', 298486374)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:35', '2016-05-24 10:31:35', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:35', '2016-05-24 10:31:35', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (1.0ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:37', '2016-05-24 10:31:37', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:37', '2016-05-24 10:31:37', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:37', '2016-05-24 10:31:37', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:37', '2016-05-24 10:31:37', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:41', '2016-05-24 10:31:41', 980190962)[0m
+  [1m[35mFixture Insert (0.1ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:41', '2016-05-24 10:31:41', 298486374)
+  [1m[36mFixture Delete (2.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:41', '2016-05-24 10:31:41', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:41', '2016-05-24 10:31:41', 480205636)[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:44', '2016-05-24 10:31:44', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:44', '2016-05-24 10:31:44', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:44', '2016-05-24 10:31:44', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:44', '2016-05-24 10:31:44', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:46', '2016-05-24 10:31:46', 980190962)[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:46', '2016-05-24 10:31:46', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:46', '2016-05-24 10:31:46', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:46', '2016-05-24 10:31:46', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.7ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:49', '2016-05-24 10:31:49', 980190962)[0m
+  [1m[35mFixture Insert (2.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:49', '2016-05-24 10:31:49', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:49', '2016-05-24 10:31:49', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:49', '2016-05-24 10:31:49', 480205636)[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:52', '2016-05-24 10:31:52', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:31:52', '2016-05-24 10:31:52', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:31:52', '2016-05-24 10:31:52', 93719296)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:31:52', '2016-05-24 10:31:52', 480205636)[0m
+  [1m[35m (1.7ms)[0m  COMMIT
+  [1m[36m (1.2ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:44:47', '2016-05-24 10:44:47', 980190962)[0m
+  [1m[35mFixture Insert (0.7ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:44:47', '2016-05-24 10:44:47', 298486374)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:44:47', '2016-05-24 10:44:47', 93719296)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:44:47', '2016-05-24 10:44:47', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------
+UserTest: test_valid
+--------------------
+  [1m[36mUser Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."phone_number" = '+8613050386450' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+--------------------------
+FriendshipTest: test_valid
+--------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:44:57', '2016-05-24 10:44:57', 980190962)[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:44:57', '2016-05-24 10:44:57', 298486374)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:44:57', '2016-05-24 10:44:57', 93719296)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:44:57', '2016-05-24 10:44:57', 480205636)[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (1.2ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------
+UserTest: test_valid
+--------------------
+  [1m[36mUser Exists (1.0ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."phone_number" = '+8613050386450' LIMIT 1[0m
+  [1m[35m (1.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:45:14', '2016-05-24 10:45:14', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:45:14', '2016-05-24 10:45:14', 298486374)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:45:14', '2016-05-24 10:45:14', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:45:14', '2016-05-24 10:45:14', 480205636)[0m
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36m (0.9ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------------------
+UserTest: test_requested_friends
+--------------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------
+UserTest: test_valid
+--------------------
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."phone_number" = '+8613050386450' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:45:41', '2016-05-24 10:45:41', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:45:41', '2016-05-24 10:45:41', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:45:41', '2016-05-24 10:45:41', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:45:41', '2016-05-24 10:45:41', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------
+UserTest: test_valid
+--------------------
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."phone_number" = '+8613050386450' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+------------------------------
+UserTest: test_pending_friends
+------------------------------
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------------
+UserTest: test_requested_friends
+--------------------------------
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:45:54', '2016-05-24 10:45:54', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:45:54', '2016-05-24 10:45:54', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:45:54', '2016-05-24 10:45:54', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:45:54', '2016-05-24 10:45:54', 480205636)[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+--------------------
+UserTest: test_valid
+--------------------
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."phone_number" = '+8613050386450' LIMIT 1[0m
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+------------------------------
+UserTest: test_pending_friends
+------------------------------
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+--------------------------------
+UserTest: test_requested_friends
+--------------------------------
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+----------------------
+UserTest: test_friends
+----------------------
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-------------------------
+UserTest: test_friendship
+-------------------------
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:48', '2016-05-24 10:46:48', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:48', '2016-05-24 10:46:48', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:46:48', '2016-05-24 10:46:48', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:46:48', '2016-05-24 10:46:48', 480205636)[0m
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36m (1.4ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+FriendshipTest: test_user
+-------------------------
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 0]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+--------------------------
+FriendshipTest: test_valid
+--------------------------
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:51', '2016-05-24 10:46:51', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:51', '2016-05-24 10:46:51', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:46:51', '2016-05-24 10:46:51', 93719296)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:46:51', '2016-05-24 10:46:51', 480205636)[0m
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36m (0.9ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+FriendshipTest: test_user
+-------------------------
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 0]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.9ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:53', '2016-05-24 10:46:53', 980190962)[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:53', '2016-05-24 10:46:53', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:46:53', '2016-05-24 10:46:53', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:46:53', '2016-05-24 10:46:53', 480205636)[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+FriendshipTest: test_user
+-------------------------
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 0]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.4ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:55', '2016-05-24 10:46:55', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:55', '2016-05-24 10:46:55', 298486374)
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:46:55', '2016-05-24 10:46:55', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:46:55', '2016-05-24 10:46:55', 480205636)[0m
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.8ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+FriendshipTest: test_user
+-------------------------
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 0]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:58', '2016-05-24 10:46:58', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:46:58', '2016-05-24 10:46:58', 298486374)
+  [1m[36mFixture Delete (1.2ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:46:58', '2016-05-24 10:46:58', 93719296)
+  [1m[36mFixture Insert (0.1ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:46:58', '2016-05-24 10:46:58', 480205636)[0m
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (1.0ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+FriendshipTest: test_user
+-------------------------
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 0]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.2ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:47:00', '2016-05-24 10:47:00', 980190962)[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:47:00', '2016-05-24 10:47:00', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:47:00', '2016-05-24 10:47:00', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:47:00', '2016-05-24 10:47:00', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.7ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------
+FriendshipTest: test_user
+-------------------------
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 0]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "delayed_jobs" DISABLE TRIGGER ALL;ALTER TABLE "users" DISABLE TRIGGER ALL;ALTER TABLE "friendships" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "friendships"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:47:03', '2016-05-24 10:47:03', 980190962)[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "friendships" ("friend_id", "status", "created_at", "updated_at", "id") VALUES ('MyString', 'MyString', '2016-05-24 10:47:03', '2016-05-24 10:47:03', 298486374)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "users"[0m
+  [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test1@email.com', 'tester1', 'tester1', 'mini', '13503558897', '7451', 'XSAjwlkw39-aWj45', 'f', '2016-05-24 10:47:03', '2016-05-24 10:47:03', 93719296)
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "users" ("email", "user_name", "first_name", "last_name", "phone_number", "digital_code", "token", "verified", "created_at", "updated_at", "id") VALUES ('test2@email.com', 'tester2', 'tester2', 'mini', '17503558897', '489', 'XSAjwlDw39-bWjdO', 'f', '2016-05-24 10:47:03', '2016-05-24 10:47:03', 480205636)[0m
+  [1m[35m (0.7ms)[0m  COMMIT
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "delayed_jobs" ENABLE TRIGGER ALL;ALTER TABLE "users" ENABLE TRIGGER ALL;ALTER TABLE "friendships" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------
+FriendshipTest: test_user
+-------------------------
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 0]]
+  [1m[35m (0.1ms)[0m  ROLLBACK

@@ -1,0 +1,7 @@
+I"w(function() {
+  $(".dropdown-menu a").click()(function() {
+    return console.log($(this));
+  });
+
+}).call(this);
+:ET

@@ -1,0 +1,9 @@
+I"¦(function() {
+  $(function() {
+    return $('.dropdown-menu a').click(function() {
+      return $("#action_type").text($(this).text());
+    });
+  });
+
+}).call(this);
+:ET

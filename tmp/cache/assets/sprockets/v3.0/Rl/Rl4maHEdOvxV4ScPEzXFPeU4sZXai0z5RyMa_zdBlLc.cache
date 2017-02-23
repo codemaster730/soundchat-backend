@@ -1,0 +1,16 @@
+I"w(function() {
+  $(function() {
+    $('.dropdown-menu a').click(function() {
+      var action_type;
+      action_type = $(this).text();
+      return $("#action_type").html(action_type + ' <span class="caret"></span>');
+    });
+    return $('.btn-add-key-value').click()(function() {
+      var key_count, key_html;
+      key_count = $(".api-key").length;
+      return key_html = '<div class="form-group"> <input class="form-control api-key" data="api-key1" placeholder="Key" type="text"> </div> <div class="form-group"> <input class="form-control api-key1-val" placeholder="Value" type="text"> </div>';
+    });
+  });
+
+}).call(this);
+:ET

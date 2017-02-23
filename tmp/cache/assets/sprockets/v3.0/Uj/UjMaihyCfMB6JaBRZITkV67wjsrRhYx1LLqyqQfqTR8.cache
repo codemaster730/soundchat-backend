@@ -1,0 +1,22 @@
+I"ã(function() {
+  $(function() {
+    $('.dropdown-menu a').click(function() {
+      var action_type;
+      action_type = $(this).text();
+      return $("#action_type").html(action_type + ' <span class="caret"></span>');
+    });
+    $('.btn-add-key-value').click(function() {
+      var key_html, next_key_value;
+      next_key_value = $(".api-key").length + 1;
+      key_html = '<div class="form-group" style="margin-top:5px;"> <input class="form-control api-key" data="api-key' + next_key_value + '" placeholder="Key" type="text"> </div> <label style="margin-top:5px;"> - </label> <div class="form-group" style="margin-top:5px;"> <input class="form-control api-key' + next_key_value + '-val" placeholder="Value" type="text"> </div>';
+      return $(".form-api-key-list").append(key_html);
+    });
+    return $('.btn-send-request').click(function() {
+      var url;
+      url = $("#basic_host_url").text() + $("#api_request_url").val();
+      return console.log(url);
+    });
+  });
+
+}).call(this);
+:ET

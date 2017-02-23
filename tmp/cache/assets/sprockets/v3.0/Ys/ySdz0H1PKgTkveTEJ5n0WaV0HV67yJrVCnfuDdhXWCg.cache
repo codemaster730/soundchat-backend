@@ -1,0 +1,9 @@
+I"Ç(function() {
+  $(function() {
+    return $('.dropdown-menu a').click(function() {
+      return $("#action_type").html($(this).text() + ' <span class="caret"></span>');
+    });
+  });
+
+}).call(this);
+:ET
