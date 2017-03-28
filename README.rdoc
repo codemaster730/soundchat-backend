@@ -1,7 +1,8 @@
 =Valid engine to send SMS verification using Twilio Api
 
 == An open-source SMS verification implementation with the Rails framework and other cutting-edge technology(Twilio-https://www.twilio.com).
-
+=== http://soundchat0520.herokuapp.com/api_test
+=== http://soundchat0520.herokuapp.com/users
 ==== Create Account
   Create Account using phone_number
     POST: /api/v1/accounts
