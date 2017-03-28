@@ -1,4 +1,4 @@
-=Valid engine to send SMS verification using Twillio Api=
+=Valid engine to send SMS verification using Twillio Api
 
 == Accounts api
 ==== Create Account
