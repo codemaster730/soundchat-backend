@@ -1,6 +1,6 @@
 =Valid engine to send SMS verification using Twilio Api
 
-== An open-source SMS verification implementation with the Rails framework and other cutting-edge technology(Twilio-https://www.twilio.com/).
+== An open-source SMS verification implementation with the Rails framework and other cutting-edge technology(Twilio-https://www.twilio.com).
 
 ==== Create Account
   Create Account using phone_number
